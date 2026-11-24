@@ -1,0 +1,35 @@
+-- ReceiptSong database schema
+-- Run this manually if you prefer not to rely on the app's auto-init.
+
+CREATE DATABASE IF NOT EXISTS receiptsong
+  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE receiptsong;
+
+CREATE TABLE IF NOT EXISTS receipts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL DEFAULT 'RECEIPTSONG',
+    name VARCHAR(255) NOT NULL DEFAULT 'Guest',
+    store_name VARCHAR(255) NOT NULL DEFAULT 'RECEIPTSONG',
+    receipt_date VARCHAR(20) NOT NULL,
+    receipt_time VARCHAR(20) NOT NULL,
+    footer VARCHAR(255) NOT NULL DEFAULT 'THANK YOU ♡',
+    theme VARCHAR(50) NOT NULL DEFAULT 'classic',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS songs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    receipt_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    artist VARCHAR(255) NOT NULL,
+    album VARCHAR(255) DEFAULT '',
+    duration VARCHAR(10) NOT NULL,
+    album_cover TEXT,
+    position INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_songs_receipt FOREIGN KEY (receipt_id)
+        REFERENCES receipts(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

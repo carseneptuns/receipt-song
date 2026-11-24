@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper text-ink font-sans antialiased;
+}
+
+::selection {
+  background: #111111;
+  color: #f7f7f5;
+}
+
+/* Torn / perforated receipt edge, reused wherever paper meets air */
+.receipt-edge-top,
+.receipt-edge-bottom {
+  height: 10px;
+  width: 100%;
+  background-image: linear-gradient(-45deg, #f7f7f5 8px, transparent 0),
+    linear-gradient(45deg, #f7f7f5 8px, transparent 0);
+  background-size: 16px 16px;
+  background-repeat: repeat-x;
+}
+
+.receipt-edge-top {
+  background-position: top;
+}
+
+.receipt-edge-bottom {
+  transform: rotate(180deg);
+}
+
+/* focus visibility for keyboard users */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@media print {
+  body {
+    background: white;
+  }
+}
